@@ -1,0 +1,54 @@
+<h1>
+    Sample Script Report
+</h1>
+<h3>
+    Filters
+</h3>
+<h4>
+    Customer Type: {%= filters.customer_type %}
+</h4>
+
+{% let currency = erpnext.get_currency(frappe.defaults.get_default("company")) %}
+
+<table style="border: 1px solid red;">
+    <thead>
+        <tr>
+            <td style="border: 5px solid red; font-weight: bold;">
+                <h2>Customer Name</h2>
+            </td>
+            <td style="border: 5px solid red; font-weight: bold;">
+                <h2>Customer Type</h2>
+            </td>
+            <td style="border: 5px solid red; font-weight: bold;">
+                <h2>Territory</h2>
+            </td>
+            <td style="border: 5px solid red; font-weight: bold;">
+                <h2>Test Currency 1</h2>
+            </td>
+        </tr>
+    </thead>
+    <tbody>
+        {% for(var i=0, l=data.length; i<l; i++) { %}
+            <tr>
+                {% if(data[i].customer_name == "Rabie") { %}
+                    <td style="border: 1px solid blue; font-weight: bold; background-color: blue;">
+                        <span style="color: gold;">{%= data[i].customer_name %}</span>
+                    </td>
+                {% } else { %}
+                    <td style="border: 1px solid blue;">
+                        {%= data[i].customer_name %}
+                    </td>
+                {% } %}
+                <td style="border: 1px solid blue;">
+                    {%= data[i].customer_type %}
+                </td>
+                <td style="border: 1px solid blue;">
+                    {%= data[i].territory %}
+                </td>
+                <td style="border: 1px solid blue;">
+                    {%= format_currency(data[i].test_currency_1, currency) %}
+                </td>
+            </tr>
+        {% } %}
+    </tbody>
+</table>
